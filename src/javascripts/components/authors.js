@@ -1,5 +1,3 @@
-// FIXME: STUDENTS show your authors
-
 const showAuthors = (array) => {
   document.querySelector('#store').innerHTML = '';
   // CREATE A BUTTON TO ADD BOOKS

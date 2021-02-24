@@ -16,6 +16,11 @@ const navigationEvents = () => {
     console.warn('All Books');
   });
 
+  // AUTHORS
+  document.querySelector('#authors').addEventListener('click', () => {
+    console.warn('Authors');
+  });
+
   // SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
     const searchValue = document.querySelector('#search').value.toLowerCase();
