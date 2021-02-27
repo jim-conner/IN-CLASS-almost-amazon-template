@@ -1,4 +1,8 @@
 import signOut from '../helpers/auth/signOut';
+import { showBooks } from '../components/books';
+import { getBooks, getSaleBooks } from '../helpers/data/bookData';
+import { getAuthors } from '../helpers/data/authorData';
+import { showAuthors } from '../components/authors';
 
 // navigation events
 const navigationEvents = () => {
@@ -8,17 +12,17 @@ const navigationEvents = () => {
 
   // BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
-    console.warn('Sale Books');
+    getSaleBooks().then((saleBooksArray) => getSaleBooks(saleBooksArray));
   });
 
   // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
-    console.warn('All Books');
+    getBooks().then((booksArray) => showBooks(booksArray));
   });
 
   // AUTHORS
   document.querySelector('#authors').addEventListener('click', () => {
-    console.warn('Authors');
+    getAuthors().then((authorsArray) => showAuthors(authorsArray));
   });
 
   // SEARCH
