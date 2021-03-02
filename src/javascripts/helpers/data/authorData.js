@@ -1,16 +1,10 @@
 import axios from 'axios';
 import firebaseConfig from '../auth/apiKeys';
+import { getBooks } from './bookData';
 // API CALLS FOR AUTHORS
 
 const dbUrl = firebaseConfig.databaseURL;
 
-// GET AUTHORS
-// compare Dr T.'s getAuthors function to mine later
-// const getAuthors = () => new Promise((resolve, reject) => {
-//   axios.get(`${dbUrl}/authors.json`)
-//     .then((response) => resolve(Object.values(response.data)))
-//     .catch((error) => reject(error));
-// });
 const getAuthors = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/authors.json`)
     .then((response) => {
@@ -24,6 +18,12 @@ const getAuthors = () => new Promise((resolve, reject) => {
 });
 
 // DELETE AUTHOR
+// const deleteAuthor = (firebaseKey) => new Promise (() => {
+//   axios.delete(`${dbUrl}/books/${firebaseKey}.json`)
+//     .then(() => getAuthors().then((authorsArray) => resolve(booksArray)))
+//     .catch((error) => reject(error));
+// });
+
 // CREATE AUTHOR
 const createAuthor = (authorObject) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/authors.json`, authorObject)
