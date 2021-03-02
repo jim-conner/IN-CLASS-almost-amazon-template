@@ -5,9 +5,14 @@ const dbUrl = firebaseConfig.databaseURL;
 
 // GET BOOKS
 const getBooks = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books/orderBy="uid"&equalTo="${uid}".json`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
+  axios.get(`${dbUrl}/books.json?orderBy="uid"&equalTo="${uid}"`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
 });
 
 // FILTER FOR ON SALE BOOKS

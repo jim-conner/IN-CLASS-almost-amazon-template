@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import addBookForm from '../components/forms/addBookForm';
-import addAuthorForm from '../components/forms/addAuthorForm';
 import { showBooks } from '../components/books';
+import addAuthorForm from '../components/forms/addAuthorForm';
 import { createAuthor } from '../helpers/data/authorData';
 import {
   createBook,
@@ -35,7 +35,6 @@ const domEvents = (uid) => {
         sale: document.querySelector('#sale').value,
         author_id: document.querySelector('#author').value,
         uid,
-        // I can add only uid here now?
       };
       createBook(bookObject, uid).then((booksArray) => showBooks(booksArray));
     }
