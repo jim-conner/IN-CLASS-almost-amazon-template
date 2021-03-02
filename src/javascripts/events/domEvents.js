@@ -1,10 +1,14 @@
+import firebase from 'firebase/app';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import { showBooks } from '../components/books';
-import { createBook, deleteBook } from '../helpers/data/bookData';
 import { createAuthor } from '../helpers/data/authorData';
+import {
+  createBook,
+  deleteBook
+} from '../helpers/data/bookData';
 
-const domEvents = () => {
+const domEvents = (uid) => {
   document.querySelector('body').addEventListener('click', (e) => {
     // CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
@@ -22,14 +26,18 @@ const domEvents = () => {
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
     if (e.target.id.includes('submit-book')) {
       e.preventDefault();
+      console.warn(firebase.auth().currentUser.uid);
+      // const userId = firebase.auth().currentUser.uid;
       const bookObject = {
         title: document.querySelector('#title').value,
         image: document.querySelector('#image').value,
         price: document.querySelector('#price').value,
         sale: document.querySelector('#sale').value,
         author_id: document.querySelector('#author').value,
+        uid,
+        // I can add only uid here now?
       };
-      createBook(bookObject).then((booksArray) => showBooks(booksArray));
+      createBook(bookObject, uid).then((booksArray) => showBooks(booksArray));
     }
 
     // CLICK EVENT FOR SHOWING MODAL FORM FOR ADDING A BOOK
@@ -57,6 +65,7 @@ const domEvents = () => {
         firebaseKey: '',
         first_name: document.querySelector('#first-name').value,
         last_name: document.querySelector('#last-name').value,
+        uid
       };
       createAuthor(authorObject).then((authorsArray) => showBooks(authorsArray));
     }
