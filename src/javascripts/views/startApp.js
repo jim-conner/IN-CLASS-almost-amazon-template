@@ -1,4 +1,4 @@
-import { showBooks } from '../components/books';
+import { emptyBooks, showBooks } from '../components/books';
 import logoutButton from '../components/buttons/logoutButton';
 import domBuilder from '../components/domBuilder';
 import navBar from '../components/navBar';
@@ -13,7 +13,13 @@ const startApp = (user) => {
   logoutButton(); // ADD THE LOGOUT BUTTON COMPONENT
   navigationEvents(user.uid); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
   // Put all books on the DOM
-  getBooks(user.uid).then((books) => showBooks(books));
+  getBooks(user.uid).then((booksArray) => {
+    if (booksArray.length) {
+      showBooks(booksArray);
+    } else {
+      emptyBooks();
+    }
+  });
 };
 
 export default startApp;

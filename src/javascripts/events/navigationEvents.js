@@ -1,7 +1,10 @@
 import { emptyAuthors, showAuthors } from '../components/authors';
 import { showBooks, emptyBooks } from '../components/books';
 import signOut from '../helpers/auth/signOut';
-import { getAuthors, getFavoriteAuthors } from '../helpers/data/authorData';
+import {
+  getAuthors,
+  getFavoriteAuthors
+} from '../helpers/data/authorData';
 import { getBooks, getSaleBooks } from '../helpers/data/bookData';
 
 // navigation events
@@ -12,11 +15,18 @@ const navigationEvents = (uid) => {
 
   // BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
-    getSaleBooks().then((saleBooksArray) => getSaleBooks(saleBooksArray));
+    getSaleBooks().then((saleBooksArray) => {
+      if (saleBooksArray.length) {
+        showBooks(saleBooksArray);
+      } else {
+        emptyBooks();
+      }
+    });
   });
 
   // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
+    // GET ALL BOOKS on click
     getBooks(uid).then((booksArray) => {
       if (booksArray.length) {
         showBooks(booksArray);
@@ -47,19 +57,19 @@ const navigationEvents = (uid) => {
 
   // AUTHORS
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors(uid).then((authorArray) => {
-      if (authorArray.length) {
-        showAuthors(authorArray);
+    getAuthors(uid).then((authorsArray) => {
+      if (authorsArray.length) {
+        showAuthors(authorsArray);
       } else {
         emptyAuthors();
       }
     });
   });
-
+  // FAV AUTHORS
   document.querySelector('#favorite-authors').addEventListener('click', () => {
-    getFavoriteAuthors().then((authorArray) => {
-      if (authorArray.length) {
-        showAuthors(authorArray);
+    getFavoriteAuthors(uid).then((authorsArray) => {
+      if (authorsArray.length) {
+        showAuthors(authorsArray);
       } else {
         emptyAuthors();
       }

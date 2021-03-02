@@ -19,7 +19,9 @@ const showBooks = (array) => {
 };
 
 const emptyBooks = () => {
-  document.querySelector('#store').innerHTML = '<h1>No Items</h1>';
+  document.querySelector('#add-button').innerHTML = '<button class="btn btn-success btn-lg mb-4" id="add-book-btn">Add A Book</button>';
+  document.querySelector('#form-container').innerHTML = '';
+  document.querySelector('#store').innerHTML = '<h1 class="text-white">No Items</h1>';
 };
 
 export { showBooks, emptyBooks };
