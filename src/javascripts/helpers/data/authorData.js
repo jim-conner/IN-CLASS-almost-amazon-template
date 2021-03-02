@@ -1,20 +1,15 @@
 import axios from 'axios';
 import firebaseConfig from '../auth/apiKeys';
-import { getBooks } from './bookData';
+// import { getBooks } from './bookData';
 // API CALLS FOR AUTHORS
 
 const dbUrl = firebaseConfig.databaseURL;
 
-const getAuthors = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json`)
-    .then((response) => {
-      if (response.data) {
-        const authorArray = Object.values(response.data);
-        resolve(authorArray);
-      } else {
-        resolve([]);
-      }
-    }).catch((error) => reject(error));
+// GET AUTHORS
+const getAuthors = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/authors/orderBy="uid"&equalTo="${uid}".json`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
 });
 
 // DELETE AUTHOR

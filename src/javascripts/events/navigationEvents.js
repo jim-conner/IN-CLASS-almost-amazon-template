@@ -1,11 +1,11 @@
 import signOut from '../helpers/auth/signOut';
-import { showBooks } from '../components/books';
+import { showBooks, emptyBooks } from '../components/books';
 import { getBooks, getSaleBooks } from '../helpers/data/bookData';
 import { getAuthors } from '../helpers/data/authorData';
 import { showAuthors } from '../components/authors';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (uid) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
@@ -17,7 +17,13 @@ const navigationEvents = () => {
 
   // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
-    getBooks().then((booksArray) => showBooks(booksArray));
+    getBooks(uid).then((booksArray) => {
+      if (booksArray.length) {
+        showBooks(booksArray);
+      } else {
+        emptyBooks();
+      }
+    });
   });
 
   // AUTHORS
