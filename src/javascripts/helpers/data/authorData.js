@@ -27,7 +27,7 @@ const getFavoriteAuthors = () => new Promise((resolve, reject) => {
 
 // DELETE AUTHOR
 const deleteAuthor = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.delete(`${dbUrl}/authors/${firebaseKey}.json`)
+  axios.delete(`${dbUrl}/authors${firebaseKey}.json`)
     .then(() => getAuthors().then((authorsArray) => resolve(authorsArray)))
     .catch((error) => reject(error));
 });
