@@ -19,7 +19,7 @@ const getBooks = (uid) => new Promise((resolve, reject) => {
 
 // FILTER FOR ON SALE BOOKS
 const getSaleBooks = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books.json?orderBy="sale"&equalTo=true&equalTo="${uid}`)
+  axios.get(`${dbUrl}/books.json?orderBy="sale"&equalTo=true&equalTo="$ {uid}`)
     .then((response) => {
       const saleBooksArray = Object.values(response.data);
       resolve(saleBooksArray);
