@@ -1,8 +1,10 @@
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
 import addBookForm from '../components/forms/addBookForm';
 import { showBooks } from '../components/books';
+import { showAuthors } from '../components/authors';
 import addAuthorForm from '../components/forms/addAuthorForm';
-import { createAuthor } from '../helpers/data/authorData';
+import { createAuthor, deleteAuthor } from '../helpers/data/authorData';
 import {
   createBook,
   deleteBook
@@ -26,8 +28,6 @@ const domEvents = (uid) => {
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
     if (e.target.id.includes('submit-book')) {
       e.preventDefault();
-      console.warn(firebase.auth().currentUser.uid);
-      // const userId = firebase.auth().currentUser.uid;
       const bookObject = {
         title: document.querySelector('#title').value,
         image: document.querySelector('#image').value,
@@ -50,6 +50,12 @@ const domEvents = (uid) => {
     }
 
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
+    if (e.target.id.includes('delete-author')) {
+      if (window.confirm('Want to delete?')) {
+        const firebaseKey = e.target.id.split('--')[1];
+        deleteAuthor(firebaseKey).then((authorsArray) => showAuthors(authorsArray));
+      }
+    }
 
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('add-author-btn')) {
@@ -61,12 +67,12 @@ const domEvents = (uid) => {
       e.preventDefault();
       const authorObject = {
         email: document.querySelector('#author-email').value,
-        firebaseKey: '',
         first_name: document.querySelector('#first-name').value,
         last_name: document.querySelector('#last-name').value,
-        uid
+        favorite: document.querySelector('#favorite').value,
+        uid,
       };
-      createAuthor(authorObject).then((authorsArray) => showBooks(authorsArray));
+      createAuthor(authorObject).then((authorsArray) => showAuthors(authorsArray));
     }
     // ADD CLICK EVENT FOR EDITING AN AUTHOR
   });
