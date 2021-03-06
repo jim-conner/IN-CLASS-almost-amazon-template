@@ -37,7 +37,7 @@
     "title": "Fifty Shades of Zombie",
     "image": "https://firebasestorage.googleapis.com/v0/b/almost-1564e.appspot.com/o/books%2Fzombie.jpg?alt=media&token=4e350713-95ba-4dc6-8091-c2fd5bb2bb27",
     "sale": true,
-    "author_id": "-MTpcliDmrp15A1WIE4U"
+    "author_id": "-MTpcliGnhDSsyvILIoJ"
   },
   "-MTpclg4KKMZ4FUaEE2b": {
     "firebaseKey": "-MTpclg4KKMZ4FUaEE2b",
@@ -47,4 +47,5 @@
     "sale": false,
     "author_id": "-MTpcliGnhDSsyvILIoJ"
   }
+  
 }

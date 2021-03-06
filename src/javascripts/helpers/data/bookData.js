@@ -18,7 +18,7 @@ const getBooks = (uid) => new Promise((resolve, reject) => {
 });
 
 // FILTER FOR ON SALE BOOKS
-const getSaleBooks = (uid) => new Promise((resolve, reject) => {
+const getSaleBooks = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/books.json?orderBy="sale"&equalTo=true&equalTo="$ {uid}`)
     .then((response) => {
       const saleBooksArray = Object.values(response.data);
@@ -34,7 +34,6 @@ const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // CREATE BOOK
-
 const createBook = (bookObject, uid) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/books.json`, bookObject)
     .then((response) => {
@@ -61,6 +60,13 @@ const updateBook = (firebaseKey, bookObject) => new Promise((resolve, reject) =>
 });
 
 // SEARCH BOOKS
+
+// GET ALL AUTHORS BOOKS
+const getAuthorBooks = (authorId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/books.json?orderBy"author_id"&equalTo=${authorId}""`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
 export {
-  getBooks, createBook, getSaleBooks, deleteBook, getSingleBook, updateBook
+  getBooks, createBook, getSaleBooks, deleteBook, getSingleBook, updateBook, getAuthorBooks
 };

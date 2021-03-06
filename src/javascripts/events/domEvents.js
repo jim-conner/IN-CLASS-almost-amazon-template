@@ -4,14 +4,17 @@ import addBookForm from '../components/forms/addBookForm';
 import editBookForm from '../components/forms/editBookForm';
 import { showBooks } from '../components/books';
 import { showAuthors } from '../components/authors';
-import addAuthorForm from '../components/forms/addAuthorForm';
+import { authorBookInfo } from '../helpers/data/authorBooksData';
 import formModal from '../components/forms/formModal';
 import { createAuthor, deleteAuthor } from '../helpers/data/authorData';
+import authorInfo from '../components/authorInfo';
+import addAuthorForm from '../components/forms/addAuthorForm';
 import {
   createBook,
   deleteBook,
   getSingleBook,
-  updateBook
+  updateBook,
+  getAuthorBooks
 } from '../helpers/data/bookData';
 
 const domEvents = (uid) => {
@@ -19,9 +22,10 @@ const domEvents = (uid) => {
     // CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
       if (window.confirm('Want to delete?')) {
-        // pull the firebaseKey off the button
-        const firebaseKey = e.target.id.split('--')[1];
-        deleteBook(firebaseKey).then((booksArray) => showBooks(booksArray));
+        const authorId = e.target.id.split('--')[1]; // pull the firebaseKey off the button
+        console.warn(authorId);
+        deleteBook(authorId).then((booksArray) => showBooks(booksArray));
+        getAuthorBooks(authorId).then((authorBooksArray) => console.warn(authorBooksArray));
       }
     }
     // CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
@@ -69,9 +73,20 @@ const domEvents = (uid) => {
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
     if (e.target.id.includes('delete-author')) {
       if (window.confirm('Want to delete?')) {
-        const firebaseKey = e.target.id.split('--')[1];
-        deleteAuthor(firebaseKey).then((authorsArray) => showAuthors(authorsArray));
+        const authorId = e.target.id.split('--')[1];
+        console.warn(authorId);
+        deleteAuthor(authorId).then((authorsArray) => showAuthors(authorsArray, uid));
       }
+    }
+
+    if (e.target.id.includes('author-name-title')) {
+      const authorId = e.target.id.split('--')[1];
+      console.warn(authorId);
+      // authorBookInfo(authorId).then((authorInfoObject) => console.warn(authorInfoObject)
+      authorBookInfo(authorId).then((authorInfoObject) => {
+        showBooks(authorInfoObject.books);
+        authorInfo(authorInfoObject.author);
+      });
     }
 
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
